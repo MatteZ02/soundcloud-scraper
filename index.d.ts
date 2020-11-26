@@ -3,6 +3,7 @@ declare module "soundcloud-scraper" {
   import { RequestOptions, IncomingMessage } from "http";
   import { RequestInfo, RequestInit, Response } from "node-fetch";
   import { load as CherrioLoad } from "cheerio";
+  import { Readable } from "stream";
 
   export interface SimpleJSON {
     [s: string]: any;
@@ -64,7 +65,7 @@ declare module "soundcloud-scraper" {
   export function downloadProgressive(
     url: string,
     options?: RequestOptions
-  ): Promise<IncomingMessage>;
+  ): Readable;
   export class StreamDownloader {
     static downloadHLS: typeof downloadHLS;
     static downloadProgressive: typeof downloadProgressive;
