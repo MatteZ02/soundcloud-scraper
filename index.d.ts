@@ -65,7 +65,7 @@ declare module "soundcloud-scraper" {
   export function downloadProgressive(
     url: string,
     options?: RequestOptions
-  ): Readable;
+  ): Promise<Readable>;
   export class StreamDownloader {
     static downloadHLS: typeof downloadHLS;
     static downloadProgressive: typeof downloadProgressive;
