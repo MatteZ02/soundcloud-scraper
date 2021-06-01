@@ -15,10 +15,10 @@ declare module "soundcloud-scraper" {
 
   export class Client {
     constructor(API_KEY?: string, ClientOptions?: ClientOptions);
-    API_KEY: string;
-    options: ClientOptions;
-    apiVersion(force?: boolean): Promise<string | null>;
-    getSongInfo(
+    public API_KEY: string;
+    public readonly options: ClientOptions;
+    public apiVersion(force?: boolean): Promise<string | null>;
+    public getSongInfo(
       url: string,
       options?: {
         fetchEmbed: boolean;
@@ -26,15 +26,15 @@ declare module "soundcloud-scraper" {
         fetchStreamURL: boolean;
       }
     ): Promise<Song>;
-    getPlaylist(url: string, options?: PlaylistParseOptions): Promise<Playlist>;
-    search(
+    public getPlaylist(url: string, options?: PlaylistParseOptions): Promise<Playlist>;
+    public search(
       query: string,
       type?: "all" | "artist" | "playlist" | "track"
     ): Promise<SearchResult[]>;
-    getUser(username: string): Promise<UserInfo>;
-    getEmbed(embedURL: string): Promise<Embed>;
-    createAPIKey(KEY?: string | null, fetch?: boolean): Promise<void>;
-    fetchStreamURL(trackURL: string): Promise<string | null>;
+    public getUser(username: string): Promise<UserInfo>;
+    public getEmbed(embedURL: string): Promise<Embed>;
+    public createAPIKey(KEY?: string | null, fetch?: boolean): Promise<void>;
+    public fetchStreamURL(trackURL: string): Promise<string | null>;
   }
 
   export const Constants: SimpleJSON;
