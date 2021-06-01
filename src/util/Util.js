@@ -24,11 +24,23 @@ class Util {
     /**
      * Validates soundcloud url
      * @param {string} url URL to validate
+     * @param {("all"|"track"|"playlist"|"artist")} [type="all"] URL validation type
      * @returns {boolean}
      */
-    static validateURL(url = null) {
+    static validateURL(url = null, type = "all") {
         if (typeof url !== "string") return false;
-        return Constants.SOUNDCLOUD_URL_REGEX.test(url);
+        
+        switch(type) {
+            case "artist":
+                return Constants.REGEX_ARTIST.test(url);
+            case "playlist":
+                return Constants.REGEX_SET.test(url) || (url.match(/soundcloud.app.goo.gl/) && url.split("/").pop().length === 5);
+            case "track":
+                return Constants.REGEX_TRACK.test(url) || url.match(/soundcloud.app.goo.gl/) && url.split("/").pop().length > 5;
+            default:
+                return Constants.SOUNDCLOUD_URL_REGEX.test(url) || url.match(/soundcloud.app.goo.gl/);
+        }
+        
     }
 
     /**
@@ -49,7 +61,7 @@ class Util {
      */
     static parseHTML(url = null, options = {}) {
         return new Promise((resolve) => {
-            Util.request(url, options)
+            Util.request(url, { redirect: "follow", ...options })
                 .then(res => res.text())
                 .then(body => resolve(body))
                 .catch(() => resolve(""));
